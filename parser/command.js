@@ -50,7 +50,8 @@ function parseNewsFromB911_requestClbk(url, resp, body){
 function parseArticleFromB911_requestClbk(article, resp, body){
 	var url = article.link;
 	$ = cheerio.load(body);
-	var element = $('.articleText').find('div');	
+	var element = $('.articleText').find('div');
+	if (element.length <= 10) return false;
 	article.text = element.text().replace(/(\r\n|\n|\r)/gm,"");
 	article.save(function(err){
 		if (err) cc.log(cc.error("Can't save article id=",article.id));
