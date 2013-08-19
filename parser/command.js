@@ -20,11 +20,21 @@ function parseNewsFromB911_requestClbk(url, resp, body){
 	news_elements.each(function (i, elem) {
 		if (i >= newsCount) return false;
 		var artName = $(this).find('a').text();
+		var artDate = $(this).find('.newsDate').text();
+		var tempDate = artDate.split('.');
+		var artDay = tempDate[0];
+		var artMonth = tempDate[1];
+		var artYear = 20 + tempDate[2];
+
 		var article = new Article({				
 			name: artName,
-			date: $(this).find('.newsDate').text(),
+			rawdate: artYear * 100000 + artMonth * 1000 + artDay,
+			day: artDay,
+			month: artMonth,
+			year: artYear,
 			link: url + $(this).find('a').attr('href'),
-			id: crypto.createHash('md5').update(artName).digest('hex')
+			id: crypto.createHash('md5').update(artName).digest('hex'),
+			source: 'Бухгалтер 911'
 		});
 
 		Article.findOne({'id':article.id}, function(err, art){
@@ -40,15 +50,14 @@ function parseNewsFromB911_requestClbk(url, resp, body){
 function parseArticleFromB911_requestClbk(article, resp, body){
 	var url = article.link;
 	$ = cheerio.load(body);
-	var element = $('.articleText').find('div');
-	article.text = element.text();
+	var element = $('.articleText').find('div');	
+	article.text = element.text().replace(/(\r\n|\n|\r)/gm,"");
 	article.save(function(err){
 		if (err) cc.log(cc.error("Can't save article id=",article.id));
 		else {
 			cc.log('News911: saved '+ article.id);
 		}
 	});
-	//cc.log(article.text);
 }
 
 function requestArticle(article, callback){

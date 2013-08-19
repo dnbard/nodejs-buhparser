@@ -3,10 +3,14 @@ var db = require('../database.js'),
 
 var articleSchema = mongoose.Schema({
 	name: String,
-	date: String,
+	rawdate: Number,
+	day: Number,
+	month: Number,
+	year: Number,
 	link: String,
 	id: String, 
-	text: String
+	text: String, 
+	source: String
 });
 
 articleSchema.methods.findSameID = function (cb) {
