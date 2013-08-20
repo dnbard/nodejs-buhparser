@@ -1,6 +1,8 @@
-var clc = require('cli-color');
+var clc = require('cli-color'),
+	LogEntry = require('./model/logentry.js').LogEntry,
+	ansiTrim = require('cli-color/lib/trim');
 
-var now = function(){
+function now(){
 	var date = new Date();
 	var hrs = date.getHours().toString();
 	var min = date.getMinutes().toString();
@@ -13,8 +15,33 @@ var now = function(){
 	return hrs + ':' + min + ':' + sec;
 };
 
-var log = function(str){
+function date(){
+	var date = new Date();
+	var day = date.getDate().toString();
+	var month = (date.getMonth() + 1).toString();
+	var year = date.getFullYear().toString();
+
+	if (day.length < 2) day = '0' + day;
+	if (month.length < 2) month = '0' + month;
+	return year + '/' + month + '/' + day;
+}
+
+function msec(){
+	var date = new Date();
+	var msec = date.getMilliseconds().toString();
+	while (msec.length <= 2) msec = '0' + msec;
+	return msec;
+}
+
+function log(str){
 	console.log(now() + ' ' + str);
+
+	var log = new LogEntry({
+		text: ansiTrim(str),
+		date: date(),
+		time: now() + ':' + msec()
+	});
+	log.save();
 };
 
 exports.error = clc.red.bold;

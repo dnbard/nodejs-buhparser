@@ -9,6 +9,7 @@ var app = express();
 var port = process.env.VCAP_APP_PORT || 3000;
 app.listen(port);
 
+cc.log('<=================================================>');
 cc.log(cc.ok('Server started at ' + cc.bold(port) + ' port'));
 routing.init(app);
 
