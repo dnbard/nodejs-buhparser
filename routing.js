@@ -4,8 +4,9 @@ var cc = require('./consoleformat.js'),
 	logs = require('./controllers/logs.js');
 
 function init(app){
-	app.get('/', index.route);
-	app.get('/logs/', logs.route);
+	//app.get('/', index.route);
+	app.get('/logs', logs.route);
+	app.get('/news', news.route);
 
 	cc.log(cc.ok("Server's routing initialized"));
 };

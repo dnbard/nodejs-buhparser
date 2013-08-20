@@ -47,7 +47,7 @@ function log(str){
 exports.error = clc.red.bold;
 exports.warn = clc.yellow;
 exports.ok = clc.green;
-exports.notice = clc.blue;
+exports.notice = clc.cyan;
 exports.now = now;
 exports.log = log;
 exports.bold = clc.bold;

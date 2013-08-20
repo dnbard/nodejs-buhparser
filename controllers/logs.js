@@ -1,6 +1,9 @@
-var LogEntry = require('../model/logentry.js').LogEntry;
+var LogEntry = require('../model/logentry.js').LogEntry,
+	cc = require('../consoleformat.js');
 
 function route(req, res){
+	//cc.log('Request for ' + cc.notice(req.path));
+
 	LogEntry.find({}, '',{
 		skip:0,
 		limit:100,

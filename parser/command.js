@@ -39,11 +39,9 @@ function parseNewsFromB911_requestClbk(url, resp, body){
 
 		Article.findOne({'id':article.id}, function(err, art){
 			if (!err && !art)
-				requestArticle(article, parseArticleFromB911_requestClbk);
-			else cc.log("News911: Skip article id=" + art.id);
-		})
-		
-		
+				return requestArticle(article, parseArticleFromB911_requestClbk);
+			else return; //cc.log("News911: Skip article id=" + art.id);
+		});
 	});
 }
 
@@ -51,12 +49,12 @@ function parseArticleFromB911_requestClbk(article, resp, body){
 	var url = article.link;
 	$ = cheerio.load(body);
 	var element = $('.articleText').find('div');
-	if (element.length <= 10) return false;
+	if (element.text().length <= 10) return false;
 	article.text = element.text().replace(/(\r\n|\n|\r)/gm,"");
 	article.save(function(err){
 		if (err) cc.log(cc.error("Can't save article id=",article.id));
 		else {
-			cc.log('News911: saved '+ article.id);
+			cc.log('News911: saved '+ cc.notice(article.id));
 		}
 	});
 }
@@ -74,7 +72,7 @@ function requestArticle(article, callback){
 }
 
 function requestUrl(url, callback){
-	cc.log('Request send to ' + url);
+	cc.log('Request send to ' + cc.notice(url));
 	request(url, function(err, resp, body){
 		if (err){
 			cc.log(cc.error("Couldn't request " + url));

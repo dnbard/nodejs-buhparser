@@ -2,7 +2,9 @@ var express = require('express'),
 	cc = require('./consoleformat.js'),	
 	Article = require('./model/article.js').Article, 
 	parser = require('./parser/command.js'),
-	routing = require('./routing.js');
+	routing = require('./routing.js'),
+	bootstrap = require('./bootstrap.js')
+	timers = require('./timers.js');
 
 var app = express();
 
@@ -11,7 +13,10 @@ app.listen(port);
 
 cc.log('<=================================================>');
 cc.log(cc.ok('Server started at ' + cc.bold(port) + ' port'));
+
+app.use(bootstrap.beforeRequest);
+app.use(bootstrap.errorLogging);
 routing.init(app);
 
-parser.parseNewsFromB911();
-
+timers.startup();
+timers.init(1500000);
