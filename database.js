@@ -17,7 +17,7 @@ else{
 }
 
 var generate_mongo_url = function(obj){
-    obj.hostname = (obj.hostname || 'localhost');
+    /*obj.hostname = (obj.hostname || 'localhost');
     obj.port = (obj.port || 27017);
     obj.db = (obj.db || 'test');
     if(obj.username && obj.password){
@@ -25,7 +25,8 @@ var generate_mongo_url = function(obj){
     }
     else{
         return "mongodb://" + obj.hostname + ":" + obj.port + "/" + obj.db;
-    }
+    }*/
+    return "mongodb://first:jqueen@paulo.mongohq.com:10087/buh-db";
 }
 
 var mongourl = generate_mongo_url(mongo);
