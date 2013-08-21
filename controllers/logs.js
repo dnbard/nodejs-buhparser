@@ -6,7 +6,7 @@ function route(req, res){
 
 	LogEntry.find({}, '',{
 		skip:0,
-		limit:100,
+		/*limit:100,*/
 		sort: { date:-1, time: -1 }
 	}, function(err, logs){
 		if (err) return res.send({'result-error':err});
