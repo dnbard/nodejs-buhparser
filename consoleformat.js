@@ -4,9 +4,9 @@ var clc = require('cli-color'),
 
 function now(){
 	var date = new Date();
-	var hrs = date.getHours().toString();
-	var min = date.getMinutes().toString();
-	var sec = date.getSeconds().toString();
+	var hrs = date.getUTCHours().toString();
+	var min = date.getUTCMinutes().toString();
+	var sec = date.getUTCSeconds().toString();
 
 	if (hrs.length < 2) hrs = '0' + hrs;
 	if (min.length < 2) min = '0' + min;
@@ -17,8 +17,8 @@ function now(){
 
 function date(){
 	var date = new Date();
-	var day = date.getDate().toString();
-	var month = (date.getMonth() + 1).toString();
+	var day = date.getUTCDate().toString();
+	var month = (date.getUTCMonth() + 1).toString();
 	var year = date.getFullYear().toString();
 
 	if (day.length < 2) day = '0' + day;
@@ -28,7 +28,7 @@ function date(){
 
 function msec(){
 	var date = new Date();
-	var msec = date.getMilliseconds().toString();
+	var msec = date.getUTCMilliseconds().toString();
 	while (msec.length <= 2) msec = '0' + msec;
 	return msec;
 }
