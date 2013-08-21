@@ -10,7 +10,9 @@ var express = require('express'),
 cc.log('<=================================================>');
 var app = express();
 db.Connect(function(){
+	//this code is used by appfog nodejs installation
 	//var port = process.env.VCAP_APP_PORT || 3000;
+	//this code is used by heroku nodejs installation
 	var port = process.env.PORT || 3000;
 	app.listen(port);
 
