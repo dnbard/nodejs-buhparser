@@ -8,7 +8,8 @@ var express = require('express'),
 
 var app = express();
 
-var port = process.env.VCAP_APP_PORT || 3000;
+//var port = process.env.VCAP_APP_PORT || 3000;
+var port = process.env.PORT || 3000;
 app.listen(port);
 
 cc.log('<=================================================>');
